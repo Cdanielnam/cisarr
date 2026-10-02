@@ -1,0 +1,29 @@
+# Copia del .gitignore SIN las líneas dist/, dist-ssr/ y *.local
+# (así lo indica la Guía 1 de clase)
+
+# Dependencias (se reinstalan dentro del contenedor con npm install)
+node_modules/
+
+# Pruebas y reportes
+coverage/
+
+# Variables de entorno (la app no usa ninguna, pero por si se agregan)
+.env
+.env.*
+!.env.example
+
+# Registros
+*.log
+npm-debug.log*
+
+# Editores y sistema operativo
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Extras: no hacen falta para ejecutar la app (ver docs/GUIA_PARA_DOCKERIZAR.md, sección 6)
+.git
+docs/
+README.md
