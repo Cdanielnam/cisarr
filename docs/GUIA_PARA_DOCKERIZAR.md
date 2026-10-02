@@ -5,6 +5,11 @@ Documento para la persona del equipo que va a **dockerizar** la app. Aquí está
 
 > Para entender cómo funciona la app por dentro (componentes, hook, API), lee el [`README.md`](../README.md).
 
+> **Actualización:** la app ya está dockerizada. El `Dockerfile` y el `.dockerignore` están en la raíz del proyecto
+> y el paso a paso está en [`GUIA_DOCKER.md`](GUIA_DOCKER.md). Se eligió la **opción 5** de la sección 8 (modo
+> desarrollo con `npm run dev -- --host`), que es el método de la guía de clase. Este documento se conserva como
+> referencia de los datos que se usaron.
+
 ## Resumen rápido
 
 | Dato | Valor |

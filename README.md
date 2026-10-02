@@ -4,7 +4,9 @@ Juego de cartas hecho con **React + Vite** que consume la API pública **[Deck o
 Sale una carta y el jugador adivina si la siguiente será **mayor** o **menor**. Proyecto para la exposición de
 Bachillerato en Desarrollo de Software.
 
-> Si vas a dockerizar la app, lee también [`docs/GUIA_PARA_DOCKERIZAR.md`](docs/GUIA_PARA_DOCKERIZAR.md).
+> La app ya está **dockerizada**: mira la [sección 13](#13-ejecutar-con-docker) y la guía paso a paso
+> [`docs/GUIA_DOCKER.md`](docs/GUIA_DOCKER.md). Los datos técnicos que se usaron para dockerizarla están en
+> [`docs/GUIA_PARA_DOCKERIZAR.md`](docs/GUIA_PARA_DOCKERIZAR.md).
 
 ## Índice
 
@@ -20,6 +22,7 @@ Bachillerato en Desarrollo de Software.
 10. [Decisiones técnicas](#10-decisiones-técnicas)
 11. [Problemas comunes y soluciones](#11-problemas-comunes-y-soluciones)
 12. [Capturas](#12-capturas)
+13. [Ejecutar con Docker](#13-ejecutar-con-docker)
 
 ---
 
@@ -131,8 +134,11 @@ mayor_o_menor/
 ├── vite.config.js              # Configuración de Vite (plugin de React) y de Vitest
 ├── eslint.config.js            # Reglas de ESLint
 ├── .gitignore                  # Archivos que Git ignora (node_modules, dist...)
+├── Dockerfile                  # Instrucciones para construir la imagen de Docker
+├── .dockerignore               # Archivos que Docker NO copia a la imagen (node_modules...)
 ├── README.md                   # Este documento
 ├── docs/
+│   ├── GUIA_DOCKER.md          # Paso a paso de la dockerización y de Docker Hub
 │   ├── GUIA_PARA_DOCKERIZAR.md # Información para quien va a dockerizar la app
 │   └── capturas/               # Aquí van las imágenes para el informe
 ├── public/
@@ -423,3 +429,34 @@ Guarda las imágenes en `docs/capturas/` y quita los comentarios `<!-- -->` para
 <!-- ![Respuesta de la API](docs/capturas/09-curl-api.png) -->
 > 📸 **[ESPACIO PARA CAPTURA]** El resultado de los dos `curl` de la sección 9, o la pestaña **Network** del navegador.
 > Archivo sugerido: `docs/capturas/09-curl-api.png`
+
+## 13. Ejecutar con Docker
+
+Con Docker **no hace falta instalar Node ni ejecutar `npm install`**: todo va dentro de la imagen. Solo se necesita
+tener [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado y abierto.
+
+```bash
+git clone https://github.com/Cdanielnam/cisarr.git
+cd cisarr
+docker build -t mayor-o-menor .
+docker run -it --rm -p 5173:5173 mayor-o-menor
+```
+
+Después abre <http://localhost:5173>. Para detener el contenedor presiona `Ctrl + C`.
+
+| Comando | Qué hace |
+| --- | --- |
+| `docker build -t mayor-o-menor .` | Construye la imagen siguiendo el `Dockerfile` y le pone el nombre `mayor-o-menor`. |
+| `docker run -it --rm -p 5173:5173 mayor-o-menor` | Arranca un contenedor y publica el puerto 5173 del contenedor en el 5173 de tu computadora. |
+| `docker images` | Lista las imágenes que tienes. |
+| `docker ps` | Lista los contenedores en ejecución. |
+
+Archivos de Docker (en la raíz del proyecto):
+
+| Archivo | Para qué sirve |
+| --- | --- |
+| `Dockerfile` | La "receta" de la imagen: Node 24 (Alpine), instala dependencias, copia el código, hace el build y arranca Vite en el puerto 5173. |
+| `.dockerignore` | Lo que **no** se copia a la imagen: `node_modules`, registros, archivos del editor, `.git` y la documentación. |
+
+La explicación línea por línea, cómo subir la imagen a **Docker Hub** (`docker push` / `docker pull`), las capturas
+para la entrega y las preguntas frecuentes están en [`docs/GUIA_DOCKER.md`](docs/GUIA_DOCKER.md).

@@ -322,7 +322,8 @@ el repositorio de GitHub y la comprobación final.
 
 ## 2. Archivos de mi parte
 
-- `Dockerfile` y archivos de Docker `[los crea esta persona]`
+- `Dockerfile` y `.dockerignore` (en la raíz del proyecto)
+- `docs/GUIA_DOCKER.md` (paso a paso de la dockerización y de Docker Hub)
 - `README.md` y `docs/GUIA_PARA_DOCKERIZAR.md`
 - `package.json` y `package-lock.json`
 - El repositorio de GitHub (ramas y Pull Request)
@@ -340,7 +341,14 @@ el repositorio de GitHub y la comprobación final.
 - `package-lock.json` guarda las versiones exactas; `npm ci` instala exactamente esas versiones.
 - La guía `docs/GUIA_PARA_DOCKERIZAR.md` compara 5 formas de servir la app (nginx, otro servidor estático, `serve`,
   `preview` y modo desarrollo) con ventajas y desventajas.
-- **Opción de Docker elegida:** `[Escribe cuál elegiste y por qué.]`
+- **Opción de Docker elegida:** la **opción 5** de esa guía (una sola etapa con `npm run dev -- --host`), que es el
+  método de la Guía 1 de clase. La imagen parte de `node:24-alpine`, instala las dependencias, copia el código, hace
+  el build como comprobación y arranca Vite en el puerto **5173**. Se eligió porque es el método que vimos en clase,
+  tiene un solo archivo corto y todos podemos explicarlo. Su desventaja es que la imagen pesa más que con nginx.
+- **Cómo se ejecuta:** `docker build -t mayor-o-menor .` y luego `docker run -it --rm -p 5173:5173 mayor-o-menor`.
+  Se abre en http://localhost:5173.
+- **Docker Hub:** la imagen se sube con `docker push usuario/mayor-o-menor:v1` y en otra computadora se descarga con
+  `docker pull`, sin instalar Node ni clonar el repositorio. Todo el paso a paso está en `docs/GUIA_DOCKER.md`.
 
 ## 4. Código clave
 
@@ -356,8 +364,23 @@ el repositorio de GitHub y la comprobación final.
 "engines": { "node": "^22.12.0 || >=24.0.0" }
 ```
 
-```text
-Dockerfile: [pegar aquí el Dockerfile que escribas]
+```dockerfile
+# Dockerfile
+FROM node:24-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
 ```
 
 ## 5. Cómo se verificó
@@ -377,6 +400,8 @@ Desde una instalación limpia (sin `node_modules`): `npm ci` sin errores, `npm r
 
 ## 7. Mi aporte personal
 
+<!-- TODO(human): reemplaza la línea de abajo con 3 a 5 oraciones propias: qué instalaste (WSL, Docker Desktop),
+     qué comandos ejecutaste, qué error te salió y cómo lo resolviste, y qué probaste en otra computadora. -->
 `[Escribe con tus palabras qué estudiaste, qué probaste y qué hiciste en tu parte.]`
 
 ## 8. Preguntas que pueden hacerme
