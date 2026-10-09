@@ -459,5 +459,14 @@ Archivos de Docker (en la raíz del proyecto):
 | `Dockerfile` | La "receta" de la imagen: Node 24 (Alpine), instala dependencias, copia el código, hace el build y arranca Vite en el puerto 5173. |
 | `.dockerignore` | Lo que **no** se copia a la imagen: `node_modules`, registros, archivos del editor, `.git` y la documentación. |
 
+### Sin clonar el repositorio (desde Docker Hub)
+
+La imagen está publicada en <https://hub.docker.com/r/cdaniel0207/mayor-o-menor>. Solo se necesita Docker Desktop:
+
+```bash
+docker pull cdaniel0207/mayor-o-menor:v1
+docker run -it --rm -p 5173:5173 cdaniel0207/mayor-o-menor:v1
+```
+
 La explicación línea por línea, cómo subir la imagen a **Docker Hub** (`docker push` / `docker pull`), las capturas
 para la entrega y las preguntas frecuentes están en [`docs/GUIA_DOCKER.md`](docs/GUIA_DOCKER.md).

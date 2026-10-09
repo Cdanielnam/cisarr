@@ -347,7 +347,7 @@ el repositorio de GitHub y la comprobación final.
   tiene un solo archivo corto y todos podemos explicarlo. Su desventaja es que la imagen pesa más que con nginx.
 - **Cómo se ejecuta:** `docker build -t mayor-o-menor .` y luego `docker run -it --rm -p 5173:5173 mayor-o-menor`.
   Se abre en http://localhost:5173.
-- **Docker Hub:** la imagen se sube con `docker push usuario/mayor-o-menor:v1` y en otra computadora se descarga con
+- **Docker Hub:** la imagen se sube con `docker push cdaniel0207/mayor-o-menor:v1` y en otra computadora se descarga con
   `docker pull`, sin instalar Node ni clonar el repositorio. Todo el paso a paso está en `docs/GUIA_DOCKER.md`.
 
 ## 4. Código clave

@@ -190,7 +190,7 @@ los que más se repiten; marca cuáles viviste.
 | `port is already allocated` | Otro proceso (otro `npm run dev` u otro contenedor) usaba el 5173 | Detenerlo o publicar en otro puerto: `-p 8080:5173` |
 | Vite 8 usa binarios nativos (Rolldown) por plataforma | `node_modules` de Windows no sirve en Alpine Linux (`musl`) | Excluir `node_modules` en `.dockerignore` y dejar que `npm install` instale el binario `linux-x64-musl` dentro |
 | Cambié código y el contenedor mostraba la versión vieja | La imagen se construye una vez; no se actualiza sola | Volver a ejecutar `docker build` (la caché hace que sea rápido) |
-| `denied: requested access to the resource is denied` al hacer `docker push` | No se hizo `docker login` o el nombre de la imagen no empieza con mi usuario | `docker login` y renombrar: `docker tag mayor-o-menor usuario/mayor-o-menor:v1` |
+| `denied: requested access to the resource is denied` al hacer `docker push` | No se hizo `docker login` o el nombre de la imagen no empieza con mi usuario | `docker login` y renombrar: `docker tag mayor-o-menor cdaniel0207/mayor-o-menor:v1` |
 
 Cómo verifiqué que funcionaba dentro del contenedor (criterio 3), en orden:
 
@@ -226,7 +226,7 @@ servicio para la API y 23 pruebas unitarias. Es una aplicación solo frontend: n
 5. **Construcción**: `docker build -t mayor-o-menor .` `[tiempo que tardó, tamaño de la imagen]`.
 6. **Ejecución y verificación**: `docker run -it --rm -p 5173:5173 mayor-o-menor` y las 6 comprobaciones de la
    sección 5.
-7. **Publicación**: `docker build -t [usuario]/mayor-o-menor:v1 .`, `docker login`, `docker push`, y prueba con
+7. **Publicación**: `docker build -t cdaniel0207/mayor-o-menor:v1 .`, `docker login`, `docker push`, y prueba con
    `docker pull` en otra computadora `[de quién]`.
 8. **Repositorio**: el código con los archivos de Docker y la documentación está en
    <https://github.com/Cdanielnam/cisarr>.
@@ -240,10 +240,10 @@ docker build -t mayor-o-menor .
 docker images
 docker run -it --rm -p 5173:5173 mayor-o-menor
 docker ps
-docker build -t [usuario]/mayor-o-menor:v1 .
+docker build -t cdaniel0207/mayor-o-menor:v1 .
 docker login
-docker push [usuario]/mayor-o-menor:v1
-docker pull [usuario]/mayor-o-menor:v1
+docker push cdaniel0207/mayor-o-menor:v1
+docker pull cdaniel0207/mayor-o-menor:v1
 ```
 
 ### 6.4 Evidencias (capturas en `docs/capturas/`)
@@ -289,7 +289,7 @@ docker pull [usuario]/mayor-o-menor:v1
 | ¿Por qué no usaste `docker-compose`? | Porque hay un solo servicio. Compose sirve para orquestar varios (app + base de datos + proxy). |
 | ¿La app necesita internet dentro del contenedor? | Solo al construir (para `npm install`). Al ejecutarse, quien necesita internet es el navegador del usuario, para la API y las imágenes de cartas. |
 | ¿Qué es `--rm`? | Borra el contenedor al detenerlo, para no acumular contenedores parados. |
-| ¿Cómo lo ejecuta un compañero? | `docker pull usuario/mayor-o-menor:v1` y `docker run -it --rm -p 5173:5173 usuario/mayor-o-menor:v1`. Sin instalar Node. |
+| ¿Cómo lo ejecuta un compañero? | `docker pull cdaniel0207/mayor-o-menor:v1` y `docker run -it --rm -p 5173:5173 cdaniel0207/mayor-o-menor:v1`. Sin instalar Node. |
 | ¿Qué es un tag? | La versión de la imagen (`v1`, `v2`, `latest`). Permite tener varias versiones en Docker Hub. |
 | ¿Dónde está documentado? | README sección 13, `docs/GUIA_DOCKER.md` y este documento, en el repositorio de GitHub. |
 

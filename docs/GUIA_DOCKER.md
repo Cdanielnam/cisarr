@@ -199,13 +199,13 @@ El contenedor solo entrega los archivos de la app; quien pide las cartas es el n
 
 ## 8. Subir la imagen a Docker Hub
 
-Sigue la Guía 2. En los comandos, cambia `tu_usuario` por **tu nombre de usuario de Docker Hub**.
+Sigue la Guía 2. El usuario de Docker Hub del proyecto es **`cdaniel0207`**; si lo haces con tu cuenta, cambia ese nombre por el tuyo.
 
-1. Crear una cuenta en <https://hub.docker.com> y revisar cuál es el nombre de usuario.
+1. Crear una cuenta en <https://hub.docker.com> y revisar cuál es el nombre de usuario (en este proyecto: `cdaniel0207`).
 2. Construir la imagen con el usuario y la versión en el nombre:
 
    ```bash
-   docker build -t tu_usuario/mayor-o-menor:v1 .
+   docker build -t cdaniel0207/mayor-o-menor:v1 .
    ```
 
 3. Iniciar sesión desde la terminal:
@@ -223,10 +223,10 @@ Sigue la Guía 2. En los comandos, cambia `tu_usuario` por **tu nombre de usuari
 5. Subir la imagen:
 
    ```bash
-   docker push tu_usuario/mayor-o-menor:v1
+   docker push cdaniel0207/mayor-o-menor:v1
    ```
 
-6. Entrar a Docker Hub: en **Repositories** debe aparecer `tu_usuario/mayor-o-menor` con el tag `v1`.
+6. Entrar a Docker Hub: en **Repositories** debe aparecer `cdaniel0207/mayor-o-menor` con el tag `v1`.
 
 El nombre completo tiene tres partes: `usuario` / `nombre_imagen` : `tag`. El **tag** es la versión.
 
@@ -236,11 +236,11 @@ Esta es la prueba de que Docker funciona: en la otra computadora **no** hace fal
 repositorio, ni ejecutar `npm install`. Solo se necesita Docker Desktop abierto.
 
 ```bash
-docker pull tu_usuario/mayor-o-menor:v1
+docker pull cdaniel0207/mayor-o-menor:v1
 ```
 
 ```bash
-docker run -it --rm -p 5173:5173 tu_usuario/mayor-o-menor:v1
+docker run -it --rm -p 5173:5173 cdaniel0207/mayor-o-menor:v1
 ```
 
 Y se abre <http://localhost:5173>. (Ejercicio 1 de la Guía 2: descargarla con `pull` y pedirle a un compañero que
@@ -254,23 +254,23 @@ Ejercicio 2 de la Guía 2:
 2. Construir con el tag nuevo:
 
    ```bash
-   docker build -t tu_usuario/mayor-o-menor:v2 .
+   docker build -t cdaniel0207/mayor-o-menor:v2 .
    ```
 
 3. Subirla:
 
    ```bash
-   docker push tu_usuario/mayor-o-menor:v2
+   docker push cdaniel0207/mayor-o-menor:v2
    ```
 
 4. En la otra computadora:
 
    ```bash
-   docker pull tu_usuario/mayor-o-menor:v2
+   docker pull cdaniel0207/mayor-o-menor:v2
    ```
 
    ```bash
-   docker run -it --rm -p 5173:5173 tu_usuario/mayor-o-menor:v2
+   docker run -it --rm -p 5173:5173 cdaniel0207/mayor-o-menor:v2
    ```
 
 En Docker Hub quedan las dos versiones (`v1` y `v2`) y se puede ejecutar cualquiera de las dos. Eso es el
@@ -299,7 +299,7 @@ Guárdalas en `docs/capturas/`. Deben ser de **tu** computadora.
 | `error during connect` / `Cannot connect to the Docker daemon` | Docker Desktop está cerrado | Abrir Docker Desktop y esperar a que termine de iniciar. |
 | `port is already allocated` | El puerto 5173 ya está en uso (otro contenedor o `npm run dev`) | Detener el otro proceso, o usar otro puerto: `-p 8080:5173`. |
 | La página no abre en `localhost:5173` | Falta `-p 5173:5173` o falta `--host 0.0.0.0` en el `CMD` | Revisar el comando `docker run` y el `Dockerfile`. |
-| `denied: requested access to the resource is denied` al hacer `push` | No se hizo `docker login` o el nombre de usuario no coincide | Ejecutar `docker login` y revisar que la imagen se llame `tu_usuario/mayor-o-menor`. |
+| `denied: requested access to the resource is denied` al hacer `push` | No se hizo `docker login` o el nombre de usuario no coincide | Ejecutar `docker login` y revisar que la imagen se llame `cdaniel0207/mayor-o-menor`. |
 | "No se pudo conectar con la API. Revisa tu internet." | El **navegador** no tiene internet o la red bloquea `deckofcardsapi.com` | No es un problema de Docker. Probar con otra red y presionar **Reintentar**. |
 | Cambié el código y no se ve el cambio | La imagen ya estaba construida con el código viejo | Volver a ejecutar `docker build` y luego `docker run`. |
 | El build tarda mucho la primera vez | Se descarga la imagen base y se instalan las dependencias | Es normal. Las siguientes veces usa la caché y es más rápido. |
