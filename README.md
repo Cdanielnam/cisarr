@@ -5,7 +5,7 @@ Sale una carta y el jugador adivina si la siguiente será **mayor** o **menor**.
 Bachillerato en Desarrollo de Software.
 
 > La app ya está **dockerizada**: mira la [sección 13](#13-ejecutar-con-docker) y la guía paso a paso
-> [`docs/GUIA_DOCKER.md`](docs/GUIA_DOCKER.md). Los datos técnicos que se usaron para dockerizarla están en
+> [`docs/GUIA_DOCKER.md`](docs/GUIA_DOCKER.md) y el guion de la exposición en [`docs/EXPOSICION_DOCKER.md`](docs/EXPOSICION_DOCKER.md). Los datos técnicos que se usaron para dockerizarla están en
 > [`docs/GUIA_PARA_DOCKERIZAR.md`](docs/GUIA_PARA_DOCKERIZAR.md).
 
 ## Índice
@@ -139,6 +139,7 @@ mayor_o_menor/
 ├── README.md                   # Este documento
 ├── docs/
 │   ├── GUIA_DOCKER.md          # Paso a paso de la dockerización y de Docker Hub
+│   ├── EXPOSICION_DOCKER.md    # Guion de la exposición y documentación de la Persona 4 (rúbrica #11)
 │   ├── GUIA_PARA_DOCKERIZAR.md # Información para quien va a dockerizar la app
 │   └── capturas/               # Aquí van las imágenes para el informe
 ├── public/
